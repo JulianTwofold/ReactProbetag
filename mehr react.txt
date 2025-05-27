@@ -1,0 +1,110 @@
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser (Set-ExecutionPolicy Restricted -Scope CurrentUser)
+
+npm create vite@latest "first-app" --template react-ts
+
+cd first-app
+npm install
+
+npm run dev
+
+npm i bootstrap@latest
+
+(ES7+ Visual studio code Erweiterung instalieren. Mit rafce enter kann man einfach neue Komponenten machen)
+
+in main.tsx: import 'bootstrap/dist/css/bootstrap.css'
+
+Fragments:
+
+Ein React Komponent return immer 1 element. Wenn 2 oder mehr vorhanden immer in Div haben oder anderem Element haben!
+Bessere Lösung Fragments. Anstatt <div></div> einfach <></> React versteht es.
+
+
+Rendering Lists:
+
+In React nutzt man var.map() Für Datan aus Json oder API. Key nicht vergessen. items ist eine Variable die eine Liste hat []
+{items.map((item) => (<li key={item} className="list-group-item">{item}</li>))}
+
+
+Condidtional Rendering:
+
+Wenn man HTML nur aus bestimmten Gründen oder in spezifischen Situiationen laden möchte braucht man Conditional Rendering. Zugriff auf JS hat man mit {}
+{items.length === 0 && <p>No item found</p>}
+
+
+Handling Events:
+
+Onclick Kann mann einfach eine Funktion übereichen. Klappt natürlich auch für andere Events.
+JS: const handleClick = (event: MouseEvent) => console.log(event) 	Returntes HTML: onClick={handleClick}
+
+
+useState:
+
+schreibe useState und wähle option use um Funktion zu importieren. Damit weiss React, dass Variable immer wieder angepasst wird.useState wird gebraucht wenn rerendern
+const [selectedIndex, setSelectedIndex] = useState(-1);          onClick={() => {setSelectedIndex(index)}}
+
+
+passing data with probs: 
+
+Component variabeln übergeben und Component so drauf anpassen. Wie eine Funktion die auf Parameter reagiert. Zum Beispiel Von Main app aus steuern.
+interface Probs {items: string[];heading: string;}           function ListGroup({items, heading}: Probs) { 
+
+
+Funktionen mit Probs übergeben:
+
+damit ein Komponent flexibel ist kann man Funktionen übergeben. Das macht man am besten vom "Nutzer" des Komponenten aus.
+interface Probs {items: string[];heading: string;onSelectItem: (item:string) => void;}
+
+
+Allgemeine Info:
+
+Probs sind variabeln die sich nicht ändern sollen. States sind variabeln die sich andauernt verändern. States sind in Komponenten.
+
+
+Children:
+
+Man kan ganzes React HTML an einen Komponent übergeben. Dies ist der fall weil Reeact Children und React Node kennt.
+interface Props{children: ReactNode;}
+return <div><Alert>ALARM ALARM <strong>!</strong></Alert></div>
+
+
+Browser Extension:
+
+Es gibt React Devtools. Ich empfehle instalation.
+
+
+
+Use Effect:
+
+Sehr komischer Name. Wird genutzt falls: Etwas passieren soll wen rerendert wird, gemounted (erstes mal geladen) wird oder wenn eine Variable geändert wird.
+Bei event listener stark aufpassen, dass nicht zu viele hinzugefügt werden.
+
+useEffect(() => {document.title = `Count: ${count} ${color}`;}, [count, color]);
+
+
+create/use Context:
+
+Manchmal soll man in Component D auf Component A zugreifen. Anstatt ein riesiges Nest mit probs zu machen kann man Context nutzen. Der Consumer Nutz die Info, provider gibt.
+
+Provider: import {createContext} from 'react'  export const NameContext = createContext("");  
+<NameContext.Provider value={'Julian'}><ContextConsumer/></NameContext.Provider>
+
+Consumer: import {useContext} from 'react' import {NameContext} from './../App' const name = useContext(NameContext);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
