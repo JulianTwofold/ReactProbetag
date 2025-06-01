@@ -1,31 +1,63 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 
-//unfinished
-interface User { 
+interface User {
   id: number;
   firstname: string;
-  address:{
+  address: {
     street: string;
-  }
+  };
 }
 
-const FetchApi = () => {
+interface Props {
+  userId?: number;
+}
+
+const FetchApi = ({ userId }: Props) => {
   const [persons, setPersons] = useState<User[] | null>(null);
+  const url = `/api/users?id=${userId}`;
+
+  const getFallbackData = async (): Promise<User[]> => {
+    const response = await fetch("/users.json");
+    return response.json();
+  };
 
   useEffect(() => {
-    fetch('/users.json') //Moved to public
-      .then((response) => response.json())
-      .then((json) => setPersons(json));
-  }, []);
+    const fetchData = async () => {
+      try {
+        if (!userId) {
+          const fallbackData = await getFallbackData();
+          setPersons(fallbackData);
+          return;
+        }
+
+        const response = await fetch(url);
+        if (!response.ok) {
+          const fallbackData = await getFallbackData();
+          setPersons(fallbackData);
+          return;
+        }
+
+        const data = await response.json();
+        setPersons(data);
+      } catch {
+        const fallbackData = await getFallbackData();
+        setPersons(fallbackData);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
 
   return (
     <div>
       {persons ? (
-        <>
-          {persons.map((person) => (
-            <div key={person.id}>Name: {person.firstname}<br/>Strasse: {person.address.street}<br/><br/></div>
-          ))}
-        </>
+        persons.map((person) => (
+          <div key={person.id}>
+            <div>Name: {person.firstname}</div>
+            <div>Strasse: {person.address.street}</div>
+            <br />
+          </div>
+        ))
       ) : (
         <p>Loading...</p>
       )}

@@ -1,11 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import TestTag from './TestTag.tsx'
-
-// <App />
+import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-   <TestTag/>
+    <App />
   </StrictMode>,
 )
