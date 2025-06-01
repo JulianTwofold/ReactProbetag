@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 //unfinished
 interface User { 
   id: number;
-  name: string;
+  firstname: string;
 }
 
 const FetchApi = () => {
@@ -20,7 +20,7 @@ const FetchApi = () => {
       {persons ? (
         <>
           {persons.map((person) => (
-            <div key={person.id}>{person.name} test</div>
+            <div key={person.id}>{person.firstname}</div>
           ))}
         </>
       ) : (
