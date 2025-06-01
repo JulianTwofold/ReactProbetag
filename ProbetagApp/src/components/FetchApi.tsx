@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 interface User { 
   id: number;
   firstname: string;
+  address:{
+    street: string;
+  }
 }
 
 const FetchApi = () => {
@@ -20,7 +23,7 @@ const FetchApi = () => {
       {persons ? (
         <>
           {persons.map((person) => (
-            <div key={person.id}>{person.firstname}</div>
+            <div key={person.id}>Name: {person.firstname}<br/>Strasse: {person.address.street}<br/><br/></div>
           ))}
         </>
       ) : (
