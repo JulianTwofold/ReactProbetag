@@ -1,0 +1,10 @@
+CORS Probleme habe ich schon ein paar mal behoben. Bei Javascript nutzt man einfach das LiveServer Plugin von VS code und bei PHP arbeitet man eh mit Servern.
+Dieses CORS Problem habe ich mit einem Proxy behoben. Ich denke, das ist eine gute Lösung für die Entwicklung. Wenn nicht, kannst du es mir gerne sagen.
+
+Ich habe einen flexiblen Komponenten gebaut der lokale JSON Daten oder Daten aus dem Internet laden kann. Ich denke für diese Übung macht das am meisten Sinn.
+
+Eine funktionierende Lösung hatte ich oft schnell, eine saubere Lösung ist immer etwas anderes. Ich nutze dieses Projekt als eine Vorlage für zukünftige Projekte, also war es mir wichtig, dass alles sauber ist.
+
+Am meisten Zeit beansprucht haben die CORS Probleme. Ich habe versucht diese in React zu Lösen. Das war der falsche Ansatz.
+
+Ich denke, ich hätte schneller auf proxy kommen können, aber ich habe diese als hässliche Lösung wahrgenommen. Im Nachhinein sind Sie ähnlich wie Liveserver, da hätte ich nicht so perfektionistisch sein sollen. Der Code für die API Anfrage war lange unschön und hatte viel redudanten Code und if else Statements. Mir war aber einfach wichtig, ein funktionierendes Zwischenprodukt zu haben. Ich wusste, dass ich die unschönheiten später beheben kann. Dieses Vorgehen hat sich schon oft bewährt.
