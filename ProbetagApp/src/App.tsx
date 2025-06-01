@@ -1,13 +1,14 @@
 import FetchApi from './components/FetchApi';
-
+import './index.css';
+ 
 function App(){
 
   return <div>
-    <strong>Lokales JSON lesen:</strong><br/><br/>
+    <p>Lokales JSON lesen:</p><br/>
     <FetchApi local={true}/><br/><br/>
-    <strong>API Anfrage mit Id:</strong><br/><br/>
+    <p>API Anfrage mit Id:</p><br/><br/>
     <FetchApi userId={1}/><br/><br/>
-    <strong>API Anfrage Ohne Angabe:</strong><br/><br/>
+    <p>API Anfrage Ohne Angabe:</p><br/>
     <FetchApi /><br/><br/>
     </div>
 }

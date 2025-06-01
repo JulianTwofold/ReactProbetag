@@ -15,12 +15,6 @@ interface Props {
 
 const FetchApi = ({ userId, local }: Props) => {
   const [persons, setPersons] = useState<User[] | null>(null);
-
-  const getFallbackData = async (): Promise<User[]> => {
-    const response = await fetch("/users.json");
-    return response.json();
-  };
-
   const search = userId ? `?id=${userId}` : "";
   const url = "/api/users" + search;
 
@@ -29,23 +23,21 @@ const FetchApi = ({ userId, local }: Props) => {
       try {
         //Load local JSON file if desired
         if (local) {
-          const fallbackData = await getFallbackData();
-          setPersons(fallbackData);
-          return;
+          throw null;
         }
         //Used API is a mock API only id=1 works. All other return everything
         const response = await fetch(url);
         if (!response.ok) {
-          const fallbackData = await getFallbackData();
-          setPersons(fallbackData);
-          return;
+          throw null;
         }
-
+        //Prevent error if JSON is only 1 Object. Load The Data
         const data = await response.json();
         const normalizedData = Array.isArray(data) ? data : [data];
         setPersons(normalizedData);
       } catch {
-        const fallbackData = await getFallbackData();
+        //Load local JSON file as a fallback
+        const response = await fetch("/users.json");
+        const fallbackData = await response.json();
         setPersons(fallbackData);
       }
     };
