@@ -10,31 +10,30 @@ interface User {
 
 interface Props {
   userId?: number;
+  local?: boolean;
 }
 
-const FetchApi = ({ userId }: Props) => {
+const FetchApi = ({ userId, local }: Props) => {
   const [persons, setPersons] = useState<User[] | null>(null);
-  //API Doesnt work. Only id=1 shows 1 user (https://jsonplaceholder.org/users?id=1)
-  let url = `/api/users?id=${userId}`;
 
   const getFallbackData = async (): Promise<User[]> => {
     const response = await fetch("/users.json");
     return response.json();
   };
 
+  const search = userId ? `?id=${userId}` : "";
+  const url = "/api/users" + search;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (userId === 0) {
-          url = "/api/users";
-          userId = -1;
-        }
-        if (!userId) {
-          console.log("Falllllllllllllllllbackkkkkkkkkkkkkkkk");
+        //Load local JSON file if desired
+        if (local) {
           const fallbackData = await getFallbackData();
           setPersons(fallbackData);
           return;
         }
+        //Used API is a mock API only id=1 works. All other return everything
         const response = await fetch(url);
         if (!response.ok) {
           const fallbackData = await getFallbackData();
@@ -43,12 +42,8 @@ const FetchApi = ({ userId }: Props) => {
         }
 
         const data = await response.json();
-        if (userId === -1) {
-          setPersons(data);
-        }
-        else{
-        setPersons([data]);
-        }
+        const normalizedData = Array.isArray(data) ? data : [data];
+        setPersons(normalizedData);
       } catch {
         const fallbackData = await getFallbackData();
         setPersons(fallbackData);
